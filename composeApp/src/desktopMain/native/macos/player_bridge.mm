@@ -2588,13 +2588,14 @@ static void nuvioMpvWakeup(void *ctx) {
                               value:[resolvedBackgroundColor hasPrefix:@"#00"] ? @"outline-and-shadow" : @"opaque-box"];
         }
         if (modeChanged || outlineColorChanged) {
-            [self setStringProperty:"sub-outline-color" value:resolvedOutlineColor];
+            // The bundled mpv 0.38 uses sub-border-*; newer mpv keeps these aliases.
+            [self setStringProperty:"sub-border-color" value:resolvedOutlineColor];
         }
         if (modeChanged || boldChanged) {
             [self setStringProperty:"sub-bold" value:bold ? @"yes" : @"no"];
         }
         if (modeChanged || outlineSizeChanged) {
-            mpv_set_property(_mpv, "sub-outline-size", MPV_FORMAT_DOUBLE, &outline);
+            mpv_set_property(_mpv, "sub-border-size", MPV_FORMAT_DOUBLE, &outline);
         }
     }
     if (stripSdhChanged) {
